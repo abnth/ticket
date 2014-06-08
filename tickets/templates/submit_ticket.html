@@ -5,7 +5,7 @@
             {% csrf_token %}
             <h2 class="form-signin-heading">Submit your issue here</h2>
             <!-- Display each form here -->
-            {%for hidden in form.hidden_fields%}
+            {%for hidden in user_form.hidden_fields%}
 		{{hidden}}
 	    {%endfor%}
             {% for field in user_form.visible_fields %}

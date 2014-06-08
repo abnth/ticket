@@ -7,7 +7,8 @@ class SubmitTicketForm(forms.ModelForm):
                 #category=forms.ChoiceField({% for i in Ticket%} {{i.topic_id.category}} {% endfor %})
                 email=forms.EmailField(max_length=128,help_text="please enter your email address")
                 subject=forms.CharField(max_length=100,help_text="subject")
-                help_topic=forms.ChoiceField(choices=[Category.objects.values('category')])#the input is hidden
+                # days = forms.ChoiceField(choices=[(x, x) for x in range(1, 32)])
+                help_topic=forms.ChoiceField(choices=[(x['category'], x['category']) for x in Category.objects.values('category')])#Category.objects.values('category')])#the input is hidden
                 message=forms.CharField(max_length=500,help_text="message")
                 created_date_time=forms.DateTimeField(widget=forms.HiddenInput())
                 overdue_date_time=forms.DateTimeField(widget=forms.HiddenInput())

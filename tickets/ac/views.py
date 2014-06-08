@@ -63,8 +63,11 @@ def submit_ticket(request):
                     from django.db.models import Max
                     last_ticket=int(Ticket.objects.all().aggregate(Max('ticket_id'))['ticket_id__max'])
                     data['ticket_id']=last_ticket+1
+                    if 'submit' in data: del data['submit']
+                    if 'csrfmiddlewaretoken' in data: del data['csrfmiddlewaretoken']
                     print data
                     user_form=SubmitTicketForm(data)
+                    #how to validate the form for yourself
                     if user_form.is_valid():
                             user_form.save()
                             return HttpResponse("Saved successfully")
