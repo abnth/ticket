@@ -2,10 +2,14 @@ from ac.models import Ticket, Tablet_info
 from django import forms
 from django.contrib.auth.models import User
 from ac.models import UserProfile, Category
+import datetime
+from ac.models import *
+from datetime import timedelta
 class SubmitTicketForm(forms.ModelForm):
                 #field for email help topic subject and message
                 #category=forms.ChoiceField({% for i in Ticket%} {{i.topic_id.category}} {% endfor %})
                 email=forms.EmailField(max_length=128,help_text="please enter your email address")
+                ticket_id=forms.IntegerField(widget=forms.HiddenInput())
                 subject=forms.CharField(max_length=100,help_text="subject")
                 # days = forms.ChoiceField(choices=[(x, x) for x in range(1, 32)])
                 help_topic=forms.ChoiceField(choices=[(x['category'], x['category']) for x in Category.objects.values('category')])#Category.objects.values('category')])#the input is hidden
@@ -18,6 +22,24 @@ class SubmitTicketForm(forms.ModelForm):
                 topic_priority=forms.IntegerField(widget=forms.HiddenInput())
                 duration_for_reply=forms.IntegerField(widget=forms.HiddenInput())
                 #an inline class to provide additional information on the form
+                def clean_created_date_time(self):
+                                return datetime.datetime.now()
+                def clean_overdue_date_time(self):
+                                return datetime.datetime.now()
+                def clean_closed_date_time(self):
+                                return datetime.datetime.now()
+                def clean_status(self):
+                                return 0
+                def clean_reopened_date_time(self):
+                                return datetime.datetime.now()
+                def clean_topic_priority(self):
+                                return 2
+                def clean_duration_for_reply(self):
+                                return 24
+                def clean_ticket_id(self):
+                                last_ticket=int(Ticket.objects.all().aggregate(Max('ticket_id'))['ticket_id__max'])
+                                return last_ticket+1
+                
                 class Meta:
                         model=Category#all the fields are included
                         fields=('email','subject','help_topic','message')

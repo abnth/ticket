@@ -48,6 +48,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+LOGIN_URL = '/ac/login/'
+
 ROOT_URLCONF = 'tickets.urls'
 
 WSGI_APPLICATION = 'tickets.wsgi.application'

@@ -43,10 +43,12 @@ def display(request, id):
 #	topic_priority=models.IntegerField()
 #	duration_for_reply=models.IntegerField()
 #remove this
-    
+@login_required  
 def submit_ticket(request):
     context=RequestContext(request)
     if(request.method=="POST"):
+                    print request.POST
+                    print "________________________\n"
                     data = request.POST.copy() 
                     #data=request.POST
                     print data
@@ -75,13 +77,15 @@ def submit_ticket(request):
                     data['ticket_id']=last_ticket+1
                     #if 'submit' in data: del data['submit']
                     #if 'csrfmiddlewaretoken' in data: del data['csrfmiddlewaretoken']
-                    print data
-                    user_form=SubmitTicketForm(data)
+                    
+                    #user_form=SubmitTicketForm(data)
+                    user_form=SubmitTicketForm(request.POST)
                     #how to validate the form for yourself
                     if user_form.is_valid():
                             user_form.save()
                             return HttpResponse("Saved successfully")
                     else:
+                            print data
                             return HttpResponse("Saved unsuccessfully")
                             print "the errors are"
                             print user_form.errors
