@@ -36,3 +36,24 @@ class SubmitTicketForm(forms.ModelForm):
 #	topic_priority=models.IntegerField()
 #	duration_for_reply=models.IntegerField()
 #remove this
+
+class UserForm(forms.ModelForm):
+    username = forms.CharField(help_text="Please enter a username.")
+    email = forms.CharField(help_text="Please enter your email.")
+    password = forms.CharField(widget=forms.PasswordInput(), help_text="Please enter a password.")
+    nickname=forms.CharField(help_text="Please enter your nickname.", required=True)
+    location=forms.CharField(help_text="Please enter your location.", required=True)
+    tablet_id=forms.CharField(help_text="Please enter your tablet id.", required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password','nickname','location','tablet_id']
+
+#class UserProfileForm(forms.ModelForm):
+ #   nickname=forms.CharField(help_text="Please enter your nickname.", required=True)
+  #  location=forms.CharField(help_text="Please enter your location.", required=True)
+   # tablet_id=forms.CharField(help_text="Please enter your tablet id.", required=True)
+
+    #class Meta:
+     #   model = UserProfile
+      #  fields = ['nickname','location','tablet_id']

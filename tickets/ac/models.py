@@ -13,13 +13,13 @@ class UserProfile(models.Model):
 	location=models.CharField(max_length=10)
 	nickname=models.CharField(max_length=10)# May not needed
 	#password = models.CharField(max_length=15)
-	avatar= models.ImageField(upload_to='static/images/profile_image', blank=True)
-	online_status=models.BooleanField(default=False)# Good!
-	user_type=models.IntegerField(max_length=1,default=0)
-	skills=models.CharField(max_length=100, blank=True)#to mantain user profile
-	posts = IntegerField(default=0)
-	reply_count=models.IntegerField(default=0)
-	role=models.IntegerField()#to differentiate b/w user and admin
+	#avatar= models.ImageField(upload_to='static/images/profile_image', blank=True)
+	#online_status=models.BooleanField(default=False)# Good!
+	#user_type=models.IntegerField(max_length=1,default=0)
+	#skills=models.CharField(max_length=100, blank=True)#to mantain user profile
+	#posts = IntegerField(default=0)
+	#reply_count=models.IntegerField(default=0)
+	#role=models.IntegerField()#to differentiate b/w user and admin
 
 	def __unicode__(self):
 		return self.username
